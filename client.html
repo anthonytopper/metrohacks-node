@@ -1,0 +1,44 @@
+<style>
+#chat {display:none;}
+</style>
+<div id="name">
+<input type="text" placeholder="Your name" />
+<br><button>ENTER</button>
+</div>
+<div id="chat">
+<div id="lines"></div>
+<input type="text" placeholder="Message" />
+<br><button>Go</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.js"></script>
+<script>
+var name;
+var socket = io('http://localhost/');
+$("#name button").click(function (){
+	$("#name").hide();
+	$("#chat").show();
+	name = $("#name input").val();
+	socket.emit('join',{name:name});
+});
+function addMsg(from,msg){
+	$("#lines").append('<div><b>'+from+':</b>&nbsp;&nbsp;'+msg+'</div>');
+}
+function sendMsg(){
+	socket.emit('message',{from:name,msg:$("#chat input").val()});
+	$("#chat input").val('')
+}
+$("#chat button").click(sendMsg);
+$("#chat input").keypress(function(e) {
+    if(e.which == 13) sendMsg();
+});
+socket.on('join',function(data){
+	$("#lines").append('<div><i>'+data.name+' joined</i></div>');
+})
+socket.on('message',function(data){
+	addMsg(data.from,data.msg);
+})
+socket.on('disconnect',function(data){
+	$("#lines").append('<div><i>'+data.name+' left</i></div>');
+})
+</script>
