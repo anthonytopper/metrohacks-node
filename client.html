@@ -14,7 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.js"></script>
 <script>
 var name;
-var socket = io('http://localhost/');
+var socket = io('http://54.236.213.53/');
 $("#name button").click(function (){
 	$("#name").hide();
 	$("#chat").show();
@@ -38,7 +38,7 @@ socket.on('join',function(data){
 socket.on('message',function(data){
 	addMsg(data.from,data.msg);
 })
-socket.on('disconnect',function(data){
+socket.on('leave',function(data){
 	$("#lines").append('<div><i>'+data.name+' left</i></div>');
 })
 </script>
