@@ -1,7 +1,7 @@
 {
   "name": "node_demo",
   "version": "1.0.0",
-  "description": "Test",
+  "description": "Node.JS demo for MetroHacks 2016",
   "main": "server.js",
   "dependencies": {
     "express": "^4.13.4",
@@ -9,9 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Anthony",
+  "author": "Anthony Topper",
   "license": "ISC"
 }
